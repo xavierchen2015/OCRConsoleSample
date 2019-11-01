@@ -13,8 +13,9 @@ namespace OCRConsoleSample
         static void Main(string[] args)
         {
             string imgPath = "";
-           ////數字OK
-           var Ocr = new AdvancedOcr()
+
+            //=== 電話號碼圖片 ===
+            var Ocr = new AdvancedOcr()
             {
                 CleanBackgroundNoise = false,
                 EnhanceContrast = true,
@@ -29,54 +30,31 @@ namespace OCRConsoleSample
                 ColorDepth = 0
             };
 
-            //因為執行檔EXE在BIN底下，所以相對的圖檔要這樣寫
-            imgPath = "../../img/ajax.gif";
-            var Results = Ocr.Read(imgPath);
-            Console.Write(Path.GetFileName(imgPath) +" text is : ");
-            Console.WriteLine(Results.Text);
+            imgPath = "../../img/image1.gif"; //因為執行檔EXE在BIN底下，所以相對的圖檔要這樣寫
+            Console.Write(Path.GetFileName(imgPath) + " text is : ");
+            Console.WriteLine(Ocr.Read(imgPath).Text);
 
-            //var Ocr2 = new AdvancedOcr()
-            //{
-            //    CleanBackgroundNoise = false,
-            //    EnhanceContrast = false,
-            //    EnhanceResolution = true,
-            //    Language = IronOcr.Languages.ChineseTraditional.OcrLanguagePack,
-            //    Strategy = IronOcr.AdvancedOcr.OcrStrategy.Advanced,
-            //    //ColorSpace = AdvancedOcr.OcrColorSpace.Color,
-            //    DetectWhiteTextOnDarkBackgrounds = false,
-            //    InputImageType = AdvancedOcr.InputTypes.AutoDetect,
-            //    RotateAndStraighten = false,
-            //    ReadBarCodes = false,
-            //    ColorDepth = 0
-            //};
+            //=== 中文地址圖片 ===
             Ocr.EnhanceContrast = false;
             Ocr.EnhanceResolution = true;
             Ocr.Language = IronOcr.Languages.ChineseTraditional.OcrLanguagePack;
 
-            imgPath = "../../img/ajax2.gif";
-            var Result = Ocr.Read(imgPath);
+            imgPath = "../../img/image2.gif";
             Console.Write(Path.GetFileName(imgPath) + " text is : ");
-            Console.WriteLine(Result.Text);
+            Console.WriteLine(Ocr.Read(imgPath).Text);
 
-            var Ocr3 = new AdvancedOcr()
-            {
-                CleanBackgroundNoise = true,
-                EnhanceContrast = true,
-                EnhanceResolution = true,
-                Language = IronOcr.Languages.English.OcrLanguagePack,
-                Strategy = IronOcr.AdvancedOcr.OcrStrategy.Advanced,
-                ColorSpace = AdvancedOcr.OcrColorSpace.Color,
-                DetectWhiteTextOnDarkBackgrounds = false,
-                InputImageType = AdvancedOcr.InputTypes.Snippet,
-                RotateAndStraighten = true,
-                ReadBarCodes = false,
-                ColorDepth = 4
-            };
-            
-            imgPath = "../../img/imgcheck_pic.png";
-            var Result3 = Ocr3.Read(imgPath);
+            //=== 驗證碼圖片 ===
+            Ocr.CleanBackgroundNoise = true;
+            Ocr.EnhanceContrast = true;
+            Ocr.EnhanceResolution = true;
+            Ocr.Language = IronOcr.Languages.English.OcrLanguagePack;
+            Ocr.InputImageType = AdvancedOcr.InputTypes.Snippet;
+            Ocr.RotateAndStraighten = true;
+            Ocr.ColorDepth = 4;
+
+            imgPath = "../../img/image3.png";
             Console.Write(Path.GetFileName(imgPath) + " text is : ");
-            Console.WriteLine(Result3.Text);
+            Console.WriteLine(Ocr.Read(imgPath).Text);
 
             Console.ReadKey();
         }
