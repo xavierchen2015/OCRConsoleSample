@@ -1,3 +1,0 @@
-# OCRConsoleSample
-
-test
